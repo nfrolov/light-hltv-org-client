@@ -1,0 +1,34 @@
+<h1 class="ui header">
+  Teams
+  <a class="ui small green button right floated" href="/matches/new">Create new</a>
+</h1>
+<table class="ui selectable compact single line table">
+  <thead>
+    <tr>
+      <th class="nine wide">Teams</th>
+      <th>Score</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="m in c.matches">
+      <td>
+        <i class="flag {{m.teams[0].country}}"></i> <b>{{m.teams[0].name}}</b>
+        &nbsp;vs&nbsp;
+        <i class="flag {{m.teams[1].country}}"></i> <b>{{m.teams[1].name}}</b>
+      </td>
+      <td>{{m.result.join(':') || 'No score'}}</td>
+      <td class="collapsing right aligned">
+        <a class="ui compact basic mini button" href="/matches/{{m._id}}/edit">Edit</a>
+        <button class="ui compact basic red mini button" ng-click="c.delete(m)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot ng-if="c.loading">
+    <tr>
+      <th colspan="5">
+        <div class="ui active centered inline loader"></div>
+      </th>
+    </tr>
+  </tfoot>
+</table>

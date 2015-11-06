@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Light HLTV.org</title>
+    <link rel="stylesheet" href="//oss.maxcdn.com/semantic-ui/2.1.6/semantic.min.css">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//oss.maxcdn.com/semantic-ui/2.1.6/semantic.min.js"></script>
+    <style>body { padding: 2rem 0; }</style>
+  </head>
+  <body>
+    <div class="ui grid container" ng-controller="MainCtrl as main">
+
+      <div class="row">
+        <div class="column">
+          <div class="ui container">
+            <div class="ui pointing menu">
+              <div class="header item">Light HLTV.org</div>
+              <a class="item" ng-class="{active: main.resource === 'players'}" href="/players">Players</a>
+              <a class="item" ng-class="{active: main.resource === 'teams'}" href="/teams">Teams</a>
+              <a class="item" ng-class="{active: main.resource === 'matches'}" href="/matches">Matches</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column" ng-view></div>
+      </div>
+
+    </div>
+    <script src="/bundle.js"></script>
+  </body>
+</html>

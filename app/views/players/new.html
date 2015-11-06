@@ -1,0 +1,20 @@
+<h1 class="ui header">Create a new player</h1>
+<form class="ui form" ng-submit="c.submit()">
+  <div class="field">
+    <label>First Name</label>
+    <input type="text" ng-model="c.player.firstName">
+  </div>
+  <div class="field">
+    <label>Last Name</label>
+    <input type="text" ng-model="c.player.lastName">
+  </div>
+  <div class="field" ng-class="{error: c.errors.nick}">
+    <label>Nick</label>
+    <input type="text" ng-model="c.player.nick">
+  </div>
+  <div class="field" ng-class="{error: c.errors.country}">
+    <label>Country</label>
+    <input type="text" ng-model="c.player.country">
+  </div>
+  <button class="ui primary button" ng-class="{loading: c.saving}" type="submit">Create</button>
+</form>

@@ -1,0 +1,43 @@
+<h1 class="ui header">Edit team</h1>
+<form class="ui form" ng-class="{loading: c.loading}" ng-submit="c.submit()">
+  <div class="field" ng-class="{error: c.errors.name}">
+    <label>Name</label>
+    <input type="text" ng-model="c.team.name">
+  </div>
+  <div class="field">
+    <label>Short name</label>
+    <input type="text" ng-model="c.team.abbr">
+  </div>
+  <div class="field" ng-class="{error: c.errors.country}">
+    <label>Country</label>
+    <input type="text" ng-model="c.team.country">
+  </div>
+  <h4 class="ui dividing header">Players</h4>
+  <table class="ui very basic single line table">
+    <tbody>
+      <tr ng-repeat="p in c.team.players">
+        <td class="collapsing"><i class="flag {{p.country}}"></i></td>
+        <td class="six wide">{{p.nick}}</td>
+        <td>{{p.firstName}} {{p.lastName}}</td>
+        <td class="collapsing">
+          <button ng-click="c.removePlayer(p)" type="button" class="ui basic compact red icon button">
+            <i class="remove icon"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <select ng-model="c.newPlayer" ng-options="player as player.name for player in c.players">
+            <option value=""></option>
+          </select>
+        </td>
+        <td class="collapsing">
+          <button ng-click="c.addNewPlayer()" type="button" class="ui green compact icon button">
+            <i class="plus icon"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="ui primary button" ng-class="{loading: c.saving}" type="submit">Save changes</button>
+</form>

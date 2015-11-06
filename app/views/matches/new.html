@@ -1,0 +1,51 @@
+<h1 class="ui header">Create a new match</h1>
+<form class="ui form" ng-class="{loading: c.loading}" ng-submit="c.submit()">
+  <div class="two fields">
+    <div class="field" ng-class="{error: c.errors.team0}">
+      <label>First team</label>
+      <select ng-model="c.match.teams[0]" ng-options="team._id as team.name for team in c.teams">
+        <option value=""></option>
+      </select>
+    </div>
+    <div class="field" ng-class="{error: c.errors.team1}">
+      <label>Second team</label>
+      <select ng-model="c.match.teams[1]" ng-options="team._id as team.name for team in c.teams">
+        <option value=""></option>
+      </select>
+    </div>
+  </div>
+  <h4 class="ui dividing header">Maps</h4>
+  <div class="fields" ng-repeat="m in c.match.maps">
+    <div class="eleven wide field">
+      <input ng-model="m.map"></input>
+    </div>
+    <div class="two wide field">
+      <input ng-model="m.result[0]">
+    </div>
+    <div class="two wide field">
+      <input ng-model="m.result[1]">
+    </div>
+    <div class="one wide field">
+      <button ng-click="c.removeMap(m)" type="button" class="ui basic red icon button">
+        <i class="remove icon"></i>
+      </button>
+    </div>
+  </div>
+  <div class="fields">
+    <div class="eleven wide field">
+      <input ng-model="c.newMap.name"></input>
+    </div>
+    <div class="two wide field">
+      <input ng-model="c.newMap.result[0]">
+    </div>
+    <div class="two wide field">
+      <input ng-model="c.newMap.result[1]">
+    </div>
+    <div class="one wide field">
+      <button ng-click="c.addNewMap()" type="button" class="ui green icon button">
+        <i class="plus icon"></i>
+      </button>
+    </div>
+  </div>
+  <button class="ui primary button" ng-class="{loading: c.saving}" type="submit">Create</button>
+</form>

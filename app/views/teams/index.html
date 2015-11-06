@@ -1,0 +1,34 @@
+<h1 class="ui header">
+  Teams
+  <a class="ui small green button right floated" href="/teams/new">Create new</a>
+</h1>
+<table class="ui selectable compact single line table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Short name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="t in c.teams">
+      <td class="collapsing"><i ng-if="t.country.length == 2" class="flag {{t.country}}"></i></td>
+      <td>{{t.name}}</td>
+      <td>{{t.abbr}}</td>
+      <td>{{t.players.length}} players</td>
+      <td class="collapsing right aligned">
+        <a class="ui compact basic mini button" href="/teams/{{t._id}}/edit">Edit</a>
+        <button class="ui compact basic red mini button" ng-click="c.delete(t)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot ng-if="c.loading">
+    <tr>
+      <th colspan="5">
+        <div class="ui active centered inline loader"></div>
+      </th>
+    </tr>
+  </tfoot>
+</table>
