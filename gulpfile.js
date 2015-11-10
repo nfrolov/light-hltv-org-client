@@ -2,6 +2,7 @@
 
 const gulp = require('gulp');
 const watch = require('gulp-watch');
+const batch = require('gulp-batch');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
@@ -11,6 +12,12 @@ const del = require('del');
 const templatecache = require('gulp-angular-templatecache');
 
 const browsersync = require('browser-sync').create();
+
+gulp.watch = function (glob, tasks) {
+  watch(glob, batch((events, done) => {
+    this.start(tasks, done);
+  }));
+};
 
 
 gulp.task('clean', (cb) => {
@@ -42,12 +49,12 @@ gulp.task('scripts', ['templates'], () => {
 
   return b.bundle()
     .pipe(source('bundle.js'))
-    // .pipe(buffer())
-    // .pipe(sourcemaps.init())
-    // .pipe(uglify({mangle: false}))
-    // .pipe(sourcemaps.write())
+    .pipe(buffer())
+    .pipe(sourcemaps.init())
+    .pipe(uglify({}))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'))
-    .pipe(browsersync.stream());
+    .pipe(browsersync.stream({match: '**/*.js'}));
 });
 
 gulp.task('serve', ['watch'], (cb) => {
@@ -63,9 +70,11 @@ gulp.task('serve', ['watch'], (cb) => {
 });
 
 gulp.task('watch', ['build'], () => {
-  watch('app/views/**/*.html', () => gulp.start(['templates', 'scripts']));
-  watch('app/*.html', () => gulp.start('pages'));
-  watch('app/**/*.js', () => gulp.start('scripts'));
+  gulp.watch('app/*.html', ['pages']);
+  gulp.watch(
+    ['app/**/*.js', '!app/templates.js', 'app/views/**/*.html'],
+    ['scripts']
+  );
 });
 
 
